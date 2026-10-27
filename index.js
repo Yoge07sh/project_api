@@ -1,0 +1,34 @@
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const connect = require("./connection");
+const book = require("./routes/BookRoutes");
+const createAdmin = require("./createAdmin");
+const User = require("./routes/UserRoutes");
+const home = require("./routes/User/home");
+const discount = require("./routes/DiscountRoutes");
+const frontUser = require("./routes/User/user");
+const pincode = require("./routes/PincodeRoutes");
+const payment = require("./routes/User/payment");
+const paymentRoute = require("./routes/paymentRoute");
+const app = express();
+app.use(cors());
+app.use(book);
+app.use(discount);
+app.use(home);
+app.use(frontUser);
+app.use(User);
+app.use(pincode);
+app.use(payment);
+app.use(paymentRoute);
+
+connect();
+createAdmin();
+
+app.listen(3000, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Server is Running on 3000");
+  }
+});
